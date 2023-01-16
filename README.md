@@ -56,20 +56,24 @@ Note: As you know, EDA is the single most important part of data science. This i
 |freq_wolbachia_gtrends|float|Numerical|Google search trends for “Wolbachia” (Rescaled)|
 
 
-## Modelling
+## Grid Search Modelling
 
 #### Metrics for model evaluation
-  
-|---|Parameters|Train score|Test score|
-|---|---|---|---|
-|Linear Regression (no regularization)|lr__n_jobs: 1|0.107|0.222|
-|Linear Regression (Ridge)|rd__alpha: 65.0|0.217|0.237|
-|Linear Regression (Lasso)|la__alpha: 0.005</n>la__max_iter: 100000|0.246|0.242|
-|Linear Regression (Elastic Net)|en__alpha: 0.01</n>en__l1_ratio: 0.8|0.237|0.228|
-|Random Forest Regressor|rrf__n_estimators: 8|0.223|0.226|
-|Gradient Boosting Regressor|gb__n_estimators: 330|0.324|0.312|
-|KNeighbours Regressor|knn__n_neighbors: 6|0.112|0.114|
+Using Robust Scaler
+
+|---|Parameters|Train score|Test score|RMSE|
+|---|---|---|---|---|
+|Linear Regression (no regularization)|lr__n_jobs: 1|0.136|0.133|1.394|
+|Linear Regression (Ridge)|rd__alpha: 65.0|0.137|0.134|1.394|
+|Linear Regression (Lasso)|la__alpha: 0.005<, la__max_iter: 100000|0.137|0.133|1.395|
+|Linear Regression (Elastic Net)|en__alpha: 0.01, en__l1_ratio: 0.8|0.134|0.131|1.396|
+|Random Forest Regressor|rrf__n_estimators: 8|0.253|0.280|1.271|
+|Gradient Boosting Regressor|gb__learning_rate: 0.12, gb__max_depth: 5, gb__n_estimators: 335|0.371|0.369|1.190|
 
 #### Final model
+|---|Parameters|Train score|Test score|RMSE|
+|---|---|---|---|---|
+|Gradient Boosting Regressor|gb__learning_rate: 0.08, gb__max_depth: 6, gb__n_estimators: 340|0.795|0.365|1.193|
+
 
 ## Conclusion and Recommendations
