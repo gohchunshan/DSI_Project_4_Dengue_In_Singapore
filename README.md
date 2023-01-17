@@ -1,4 +1,5 @@
-# DSI_Project_4_Dengue_In_Singapore
+<img src="http://imgur.com/1ZcRyrc.png" style="float: left; margin: 20px; height: 55px">
+# DSI Project 4 Dengue In Singapore
 For the requirements of General Assembly Data Science Immersive Flex-7
 
 
@@ -30,7 +31,20 @@ Note: As you know, EDA is the single most important part of data science. This i
 ## Data Cleaning
 
 #### Steps taken for data cleaning
-1. 
+###### Dealing with missing values in Weather dataset
+The simplest way would be to drop all the rows containing NA values, but that is not feasible as there are quite significant proportion of NA values in our data.
+We observe there is approximately 30% missing data for columns related to Rainfall (Highest 30 Min, 60 Min and 120 Min Rainfall), and 60% missing data for columns related to Temperature (Mean, Max and Min Temperatures), and also 60% missing data for Wind speed columns (Mean Wind Speed (km/h), Max Wind Speed (km/h)).
+
+###### Method for imputing NA values
+- Rainfall: Take the mean of all the other values within the same year, month and Station. However, we note that there is no Rainfall data at all for 2012 - 2013, hence this is only possible for the year 2014 onwards.
+- Temperature/ Wind Speed: Take the mean value of all other values within the same year, month and Station as well, so that the monthly averages are not affected. There may be higher number of NA's left after imputing as there are < 50% non-null values in these columns. As there are many other null values to be imputed, we will do a second round of imputation by using the mean of the similar months from other years. For the rest that are not yet imputed, we will fill with the global mean.
+
+#### Checkpoint
+So far, we have 2 main dataframes, the `Weather` dataframe and `Total Dengue cases` dataframe. Since the `Station` column in the `Weather` dataframe and the `town` in the `Total Dengue cases` dataframe contain different list of values, we need to match the geographic regions in order to merge into one dataframe.
+
+We looked through the list of Weather Stations and Towns, and created a lookup list to be used for merging the dataframes. This allows us to keep more granular data to have more rows of data for the eventual model. 
+- As there may be a case where weather stations are in regions where no dengue cluster was reported, or vice versa (dengue cases are reported in places where there was no weather station), we will take only the intersection of the 2 lists of locations. 
+- Also, there could be cases of 'many-to-one' matching between the 2 lists of locations, for e.g. Tuas, Tuas South and Tuas West stations are all part of 'Tuas' region in the list of towns for the Total Dengue Cases dataframe.  For these 'many-to-one' weather station to town matches, we do some work to take the aggregate mean of the multiple weather stations mapped to the 1 town, before merging both dataframes on the town and the epiweek. This way, there is greater data retention.
 
 ## Data Dictionary
 |Column name|Type|Numerical/ Categorical|Description|
