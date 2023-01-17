@@ -1,4 +1,5 @@
 <img src="http://imgur.com/1ZcRyrc.png" style="float: left; margin: 20px; height: 55px">
+
 # DSI Project 4 Dengue In Singapore
 For the requirements of General Assembly Data Science Immersive Flex-7
 
